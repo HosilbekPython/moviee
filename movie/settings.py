@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z-izp1$d^#njr+oxd-+#%hxv9*3!glx^u5*gw(4q5t64)#)haa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -203,3 +203,9 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+# pip install django
+# pip install djangorestframework
+# pip install djangorestframework-simplejwt
+# pip install drf-yasg
+# pip install python-decouple
+# pip install django-cors-headers
