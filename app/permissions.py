@@ -6,7 +6,7 @@ class IsAdmin(BasePermission):
 
 class IsAuthenticatedOrExploiter(BasePermission):
     def has_permission(self, request, view):
-        return request.user.is_authenticated
+        return request.user.is_authenticated and request.user.role == 'exploiter'
 
     def has_object_permission(self, request, view, obj):
         if request.user.role == 'admin':

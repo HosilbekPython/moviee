@@ -35,7 +35,7 @@ class AdminSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Admin
-        fields = ['id', 'user', 'phone_number', 'addres']
+        fields = ['id', 'user', 'phone_number', 'addres']  # 'addres' o'rniga 'addres'
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')
@@ -162,7 +162,6 @@ class FilmSerializer(serializers.ModelSerializer):
         actors_data = validated_data.pop('actors', [])
         countries_data = validated_data.pop('countries', [])
 
-        # Kompaniyani yaratish yoki olish
         company = None
         if company_data:
             company_serializer = CompanySerializer(data=company_data)
@@ -172,7 +171,6 @@ class FilmSerializer(serializers.ModelSerializer):
             company_id = self.context['request'].data.get('company_id')
             company = Company.objects.get(id=company_id) if company_id else None
 
-        # Film obyektini yaratish
         film = Film.objects.create(
             name=validated_data['name'],
             views=validated_data.get('views', 0),
@@ -180,7 +178,6 @@ class FilmSerializer(serializers.ModelSerializer):
             company=company
         )
 
-        # Janrlarni qo‘shish
         genres = []
         if genres_data:
             for genre_data in genres_data:
@@ -194,7 +191,6 @@ class FilmSerializer(serializers.ModelSerializer):
             genres = Genre.objects.filter(id__in=genre_ids)
             film.genres.set(genres)
 
-        # Aktyorlarni qo‘shish
         actors = []
         if actors_data:
             for actor_data in actors_data:
@@ -208,7 +204,6 @@ class FilmSerializer(serializers.ModelSerializer):
             actors = Actor.objects.filter(id__in=actor_ids)
             film.actors.set(actors)
 
-        # Davlatlarni qo‘shish
         countries = []
         if countries_data:
             for country_data in countries_data:
@@ -230,7 +225,6 @@ class FilmSerializer(serializers.ModelSerializer):
         actors_data = validated_data.pop('actors', None)
         countries_data = validated_data.pop('countries', None)
 
-        # Janrlarni yangilash
         if genres_data:
             genres = []
             for genre_data in genres_data:
@@ -243,7 +237,6 @@ class FilmSerializer(serializers.ModelSerializer):
             genre_ids = self.context['request'].data.get('genre_ids', [])
             instance.genres.set(Genre.objects.filter(id__in=genre_ids))
 
-        # Kompaniyani yangilash
         if company_data:
             company_serializer = CompanySerializer(data=company_data)
             company_serializer.is_valid(raise_exception=True)
@@ -252,7 +245,6 @@ class FilmSerializer(serializers.ModelSerializer):
             company_id = self.context['request'].data.get('company_id')
             instance.company = Company.objects.get(id=company_id) if company_id else None
 
-        # Aktyorlarni yangilash
         if actors_data:
             actors = []
             for actor_data in actors_data:
@@ -265,7 +257,6 @@ class FilmSerializer(serializers.ModelSerializer):
             actor_ids = self.context['request'].data.get('actor_ids', [])
             instance.actors.set(Actor.objects.filter(id__in=actor_ids))
 
-        # Davlatlarni yangilash
         if countries_data:
             countries = []
             for country_data in countries_data:
@@ -278,7 +269,6 @@ class FilmSerializer(serializers.ModelSerializer):
             country_ids = self.context['request'].data.get('country_ids', [])
             instance.countries.set(Country.objects.filter(id__in=country_ids))
 
-        # Asosiy maydonlarni yangilash
         instance.name = validated_data.get('name', instance.name)
         instance.views = validated_data.get('views', instance.views)
         instance.video = validated_data.get('video', instance.video)

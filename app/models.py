@@ -75,7 +75,7 @@ class Comment(models.Model):
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ratings')
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='ratings')
-    score = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)])  # 1-5 rating
+    score = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)])
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

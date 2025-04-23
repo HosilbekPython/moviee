@@ -12,12 +12,12 @@ from .permissions import (
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [AllowReadOnlyForNonAdmins]  # GET hamma uchun, qolganlari admin uchun
 
 class AdminViewSet(ModelViewSet):
     queryset = Admin.objects.all()
     serializer_class = AdminSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [AllowReadOnlyForNonAdmins]  # GET hamma uchun, qolganlari admin uchun
 
 class ExploiterViewSet(ModelViewSet):
     queryset = Exploiter.objects.all()
